@@ -1,4 +1,4 @@
-﻿﻿# Mi Cliente FTP
+# Mi Cliente FTP
 
 Implementar un sencillo cliente FTP que permite explorar el sistema de ficheros de un servidor y descargar archivos. 
 
