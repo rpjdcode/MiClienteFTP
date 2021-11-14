@@ -45,7 +45,7 @@ public class Main {
 			System.out.println("==================");
 			for (FTPFile fichero : ficheros) {
 				// mostrar el nombre, el tamaño (bytes) y el tipo (0 = fichero, 1 = directorio) 
-                // de cada fichero/directorio recuperado
+				// de cada fichero/directorio recuperado
 				
 				String tipo = "";
 				switch (fichero.getType()) {
