@@ -49,10 +49,10 @@ public class Main {
 				
 				String tipo = "";
 				switch (fichero.getType()) {
-				case FTPFile.DIRECTORY_TYPE: tipo = "Directorio"; break;
-				case FTPFile.FILE_TYPE: tipo = "Fichero"; break;
-				case FTPFile.SYMBOLIC_LINK_TYPE: tipo = "Enlace"; break;
-				default: tipo = "Desconocido"; break;
+				case FTPFile.DIRECTORY_TYPE:		tipo = "Directorio"; break;
+				case FTPFile.FILE_TYPE:				tipo = "Fichero"; break;
+				case FTPFile.SYMBOLIC_LINK_TYPE:	tipo = "Enlace"; break;
+				default:							tipo = "Desconocido"; break;
 				}
 				
 				System.out.println(fichero.getName() + " / " + fichero.getSize() + " bytes / " + tipo);
