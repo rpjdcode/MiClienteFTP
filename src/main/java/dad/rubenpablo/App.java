@@ -18,9 +18,9 @@ public class App extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		rootController = new RootController();
 		
-		Scene escenarioLogin = new Scene(rootController.getView());
+		Scene escenarioLogin = new Scene(rootController.getView(), 300, 300);
 		
-		primaryStage.setTitle("Iniciar conexión");
+		primaryStage.setTitle("MiClienteFTP");
 		primaryStage.setScene(escenarioLogin);
 		primaryStage.show();
 
