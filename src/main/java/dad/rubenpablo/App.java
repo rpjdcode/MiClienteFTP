@@ -2,7 +2,7 @@ package dad.rubenpablo;
 
 import java.util.Optional;
 
-import dad.rubenpablo.login.LoginController;
+import dad.rubenpablo.root.RootController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -12,13 +12,13 @@ import javafx.stage.Stage;
 
 public class App extends Application {
 
-	private LoginController loginController;
+	private RootController rootController;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		loginController = new LoginController();
+		rootController = new RootController();
 		
-		Scene escenarioLogin = new Scene(loginController.getView());
+		Scene escenarioLogin = new Scene(rootController.getView());
 		
 		primaryStage.setTitle("Iniciar conexión");
 		primaryStage.setScene(escenarioLogin);
