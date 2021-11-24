@@ -8,7 +8,7 @@ import java.net.SocketException;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 
-public class Main {
+public class MainExample {
 	
 	public static void main(String [] args) {
 		try {
