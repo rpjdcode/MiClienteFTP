@@ -19,11 +19,11 @@ public class App extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		rootController = new RootController();
 		
-		Scene escenarioLogin = new Scene(rootController.getView(), 300, 300);
+		Scene rootScene = new Scene(rootController.getView(), 300, 300);
 		
 		primaryStage.setTitle("MiClienteFTP");
 		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/imgs/ftp-icon-32x32.png")));
-		primaryStage.setScene(escenarioLogin);
+		primaryStage.setScene(rootScene);
 		primaryStage.show();
 
 	}
@@ -33,6 +33,7 @@ public class App extends Application {
 
 	}
 	
+	/** Método que se utilizará para mostrar los errores a través de una alerta **/
 	public static void error(String title, String header, String content) {
 		Alert error = new Alert(AlertType.ERROR);
 		Stage errorStage = (Stage)error.getDialogPane().getScene().getWindow();
@@ -43,6 +44,7 @@ public class App extends Application {
 		error.showAndWait();
 	}
 	
+	/** Método que se utilizará para mostrar la información a través de una alerta **/
 	public static void info(String title, String header, String content) {
 		Alert info = new Alert(AlertType.INFORMATION);
 		Stage infoStage = (Stage)info.getDialogPane().getScene().getWindow();
@@ -53,6 +55,7 @@ public class App extends Application {
 		info.showAndWait();
 	}
 	
+	/** Método que se utilizará para mostrar un diálogo de confirmación a través de una alerta **/
 	public static boolean confirm(String title, String header, String content) {
 		Alert confirm = new Alert(AlertType.CONFIRMATION);
 		Stage confirmStage = (Stage)confirm.getDialogPane().getScene().getWindow();

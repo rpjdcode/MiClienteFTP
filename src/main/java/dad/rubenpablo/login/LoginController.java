@@ -103,7 +103,6 @@ public class LoginController implements Initializable{
     
     @FXML
     void onCancelAction(ActionEvent event) {
-    	System.out.println("Click en cancelar");
     	Stage escenario = (Stage)cancelButton.getScene().getWindow();
     	escenario.close();
     }

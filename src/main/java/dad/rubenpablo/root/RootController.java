@@ -91,21 +91,18 @@ public class RootController implements Initializable {
 		loginStage.setScene(new Scene(loginController.getView()));
 		loginStage.getIcons().add(new Image(getClass().getResourceAsStream("/imgs/ftp-icon-32x32.png")));
 
-		// Tabla
-		filesTable.itemsProperty().bind(model.filesProperty());
-
-		connectItem.disableProperty().bind(loginController.getModel().connectedProperty());
-		disconnectItem.disableProperty().bind(loginController.getModel().connectedProperty().not());
-
+		// Vinculamos las propiedades del cliente y conectado proporcionado por el modelo del login a
+		// la propiedad cliente y conectado del modelo raíz
 		model.clientProperty().bind(loginController.getModel().clientProperty());
 		model.connectedProperty().bind(loginController.getModel().connectedProperty());
+		
+		// Binds para deshabilitar los items del menú dependiendo del estado de la conexión
+		connectItem.disableProperty().bind(model.connectedProperty());
+		disconnectItem.disableProperty().bind(model.connectedProperty().not());
 
+		// Vinculamos la label para mostrar el directorio actual (currentDirectoryProperty)
 		pathLabel.textProperty().bind(model.currentDirectoryProperty());
 
-//		loginController.getModel().clientProperty().addListener((o, ov, nv) -> {
-//			changeFilesList();
-//			System.out.println("Antes valía " + ov + " y ahora valgo " + nv);
-//		});
 
 		// Tabla
 		// Vinculamos itemsProperty de la tabla a la list property de lista de
@@ -120,13 +117,16 @@ public class RootController implements Initializable {
 			});
 			return row;
 		});
+		
 		// Cell Value Factories
 		nameColumn.setCellValueFactory(v -> v.getValue().nameProperty());
 		typeColumn.setCellValueFactory(v -> v.getValue().typeProperty());
 		sizeColumn.setCellValueFactory(v -> v.getValue().sizeProperty());
 
 		// Listeners
+		/* Cuando cambie la propiedad de directorio actual, eliminaremos los ficheros almacenados en el modelo*/
 		model.currentDirectoryProperty().addListener((o, ov, nv) -> {
+			
 			if (nv == null) {
 				model.getFiles().remove(0, model.getFiles().size());
 			} else {
@@ -170,9 +170,6 @@ public class RootController implements Initializable {
 		}
 	}
 
-	public GridPane getView() {
-		return view;
-	}
 
 	@FXML
 	void onDownloadAction(ActionEvent e) {
@@ -229,6 +226,10 @@ public class RootController implements Initializable {
 			App.error("Error", "Error Listando Ficheros", "Causa: " + e.getMessage());
 			e.printStackTrace();
 		}
+	}
+	
+	public GridPane getView() {
+		return view;
 	}
 
 }
