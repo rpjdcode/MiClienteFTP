@@ -12,7 +12,7 @@
 		<maven.compiler.target>11</maven.compiler.target>
 		<maven.compiler.source>11</maven.compiler.source>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<exec.mainClass>dad.miclienteftp.Main</exec.mainClass>
+		<exec.mainClass>dad.rubenpablo.Main</exec.mainClass>
 	</properties>
 
 	<dependencies>

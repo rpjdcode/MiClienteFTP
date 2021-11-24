@@ -79,7 +79,7 @@ public class RootController implements Initializable {
 	private GridPane view;
 
 	public RootController() throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/RootController2.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/RootController.fxml"));
 		loader.setController(this);
 		loader.load();
 	}
