@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -21,6 +22,7 @@ public class App extends Application {
 		Scene escenarioLogin = new Scene(rootController.getView(), 300, 300);
 		
 		primaryStage.setTitle("MiClienteFTP");
+		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/imgs/ftp-icon-32x32.png")));
 		primaryStage.setScene(escenarioLogin);
 		primaryStage.show();
 
@@ -33,6 +35,8 @@ public class App extends Application {
 	
 	public static void error(String title, String header, String content) {
 		Alert error = new Alert(AlertType.ERROR);
+		Stage errorStage = (Stage)error.getDialogPane().getScene().getWindow();
+		errorStage.getIcons().add(new Image(App.class.getResourceAsStream("/imgs/ftp-icon-32x32.png")));
 		error.setTitle(title);
 		error.setHeaderText(header);
 		error.setContentText(content);
@@ -41,6 +45,8 @@ public class App extends Application {
 	
 	public static void info(String title, String header, String content) {
 		Alert info = new Alert(AlertType.INFORMATION);
+		Stage infoStage = (Stage)info.getDialogPane().getScene().getWindow();
+		infoStage.getIcons().add(new Image(App.class.getResourceAsStream("/imgs/ftp-icon-32x32.png")));
 		info.setTitle(title);
 		info.setHeaderText(header);
 		info.setContentText(content);
@@ -49,6 +55,8 @@ public class App extends Application {
 	
 	public static boolean confirm(String title, String header, String content) {
 		Alert confirm = new Alert(AlertType.CONFIRMATION);
+		Stage confirmStage = (Stage)confirm.getDialogPane().getScene().getWindow();
+		confirmStage.getIcons().add(new Image(App.class.getResourceAsStream("/imgs/ftp-icon-32x32.png")));
 		confirm.setTitle(title);
 		confirm.setHeaderText(header);
 		confirm.setContentText(content);

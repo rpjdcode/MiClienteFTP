@@ -25,6 +25,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
@@ -88,6 +89,7 @@ public class RootController implements Initializable {
 		loginStage = new Stage(StageStyle.DECORATED);
 		loginStage.setTitle("Iniciar conexión");
 		loginStage.setScene(new Scene(loginController.getView()));
+		loginStage.getIcons().add(new Image(getClass().getResourceAsStream("/imgs/ftp-icon-32x32.png")));
 
 		// Tabla
 		filesTable.itemsProperty().bind(model.filesProperty());
@@ -136,7 +138,11 @@ public class RootController implements Initializable {
 
 	@FXML
 	void onConnectServerAction(ActionEvent event) {
-		loginStage.showAndWait();
+		try {
+			loginStage.showAndWait();
+		} catch (Exception e) {
+			App.error("Error", "Re-invocación de conectar", "Asegúrese de que la pestaña de inicio de sesión esté cerrada");
+		}
 		
 		if (model.isConnected()) {
 			try {
