@@ -11,10 +11,11 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+
 public class App extends Application {
 
 	private RootController rootController;
-	
+	public static Stage primaryStage;
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		rootController = new RootController();
@@ -24,6 +25,7 @@ public class App extends Application {
 		primaryStage.setTitle("MiClienteFTP");
 		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/imgs/ftp-icon-32x32.png")));
 		primaryStage.setScene(rootScene);
+		primaryStage=primaryStage;
 		primaryStage.show();
 
 	}
@@ -66,5 +68,7 @@ public class App extends Application {
 		Optional<ButtonType> result = confirm.showAndWait();
 		return (result.get() == ButtonType.YES);
 	}
+	
+	
 
 }

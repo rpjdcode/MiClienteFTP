@@ -30,6 +30,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -91,18 +92,20 @@ public class RootController implements Initializable {
 		loginStage.setScene(new Scene(loginController.getView()));
 		loginStage.getIcons().add(new Image(getClass().getResourceAsStream("/imgs/ftp-icon-32x32.png")));
 
-		// Vinculamos las propiedades del cliente y conectado proporcionado por el modelo del login a
+		// Vinculamos las propiedades del cliente y conectado proporcionado por el
+		// modelo del login a
 		// la propiedad cliente y conectado del modelo raíz
 		model.clientProperty().bind(loginController.getModel().clientProperty());
 		model.connectedProperty().bind(loginController.getModel().connectedProperty());
-		
-		// Binds para deshabilitar los items del menú dependiendo del estado de la conexión
+
+		// Binds para deshabilitar los items del menú dependiendo del estado de la
+		// conexión
 		connectItem.disableProperty().bind(model.connectedProperty());
 		disconnectItem.disableProperty().bind(model.connectedProperty().not());
 
-		// Vinculamos la label para mostrar el directorio actual (currentDirectoryProperty)
+		// Vinculamos la label para mostrar el directorio actual
+		// (currentDirectoryProperty)
 		pathLabel.textProperty().bind(model.currentDirectoryProperty());
-
 
 		// Tabla
 		// Vinculamos itemsProperty de la tabla a la list property de lista de
@@ -117,16 +120,19 @@ public class RootController implements Initializable {
 			});
 			return row;
 		});
-		
+
 		// Cell Value Factories
 		nameColumn.setCellValueFactory(v -> v.getValue().nameProperty());
 		typeColumn.setCellValueFactory(v -> v.getValue().typeProperty());
 		sizeColumn.setCellValueFactory(v -> v.getValue().sizeProperty());
 
 		// Listeners
-		/* Cuando cambie la propiedad de directorio actual, eliminaremos los ficheros almacenados en el modelo*/
+		/*
+		 * Cuando cambie la propiedad de directorio actual, eliminaremos los ficheros
+		 * almacenados en el modelo
+		 */
 		model.currentDirectoryProperty().addListener((o, ov, nv) -> {
-			
+
 			if (nv == null) {
 				model.getFiles().remove(0, model.getFiles().size());
 			} else {
@@ -139,11 +145,14 @@ public class RootController implements Initializable {
 	@FXML
 	void onConnectServerAction(ActionEvent event) {
 		try {
+			loginStage.initOwner(App.primaryStage);
+			loginStage.initModality(Modality.APPLICATION_MODAL);
 			loginStage.showAndWait();
 		} catch (Exception e) {
-			App.error("Error", "Re-invocación de conectar", "Asegúrese de que la pestaña de inicio de sesión esté cerrada");
+			App.error("Error", "Re-invocación de conectar",
+					"Asegúrese de que la pestaña de inicio de sesión esté cerrada");
 		}
-		
+
 		if (model.isConnected()) {
 			try {
 				model.setCurrentDirectory(model.getClient().printWorkingDirectory());
@@ -170,7 +179,6 @@ public class RootController implements Initializable {
 		}
 	}
 
-
 	@FXML
 	void onDownloadAction(ActionEvent e) {
 		FicheroFTP selected = filesTable.getSelectionModel().getSelectedItem();
@@ -179,23 +187,31 @@ public class RootController implements Initializable {
 
 			FileChooser chooser = new FileChooser();
 			Stage chooserStage = new Stage();
+			chooserStage.initOwner(loginController.getView().getScene().getWindow());
+			chooserStage.initModality(Modality.APPLICATION_MODAL);
 			chooser.setTitle("Guardar fichero");
 			chooser.getExtensionFilters().addAll(new ExtensionFilter("Todos los tipos", "*.*"));
 			chooser.setInitialFileName(selected.getName());
-			
-			// Indicamos que almacenaremos el archivo descargado en el indicado en el chooser
-			File download = chooser.showSaveDialog(chooserStage); 
-			
-			try {
-				FileOutputStream fos = new FileOutputStream(download);
-				model.getClient().retrieveFile(selected.getName(), fos);
-				fos.flush();
-				fos.close();
-				App.info("Éxito", "Fichero guardado", "El fichero se ha descargado y guardado satisfactoriamente en " + download.getAbsolutePath());
-			} catch (IOException e1) {
-				App.error("Error Entrada/Salida", "Error relacionado con el guardado del fichero",
-						"Causa: " + e1.getMessage());
-				e1.printStackTrace();
+
+			// Indicamos que almacenaremos el archivo descargado en el indicado en el
+			// chooser
+			File download = chooser.showSaveDialog(chooserStage);
+
+			if (download != null) {
+
+				try {
+					FileOutputStream fos = new FileOutputStream(download);
+					model.getClient().retrieveFile(selected.getName(), fos);
+					fos.flush();
+					fos.close();
+					App.info("Éxito", "Fichero guardado",
+							"El fichero se ha descargado y guardado satisfactoriamente en "
+									+ download.getAbsolutePath());
+				} catch (IOException e1) {
+					App.error("Error Entrada/Salida", "Error relacionado con el guardado del fichero",
+							"Causa: " + e1.getMessage());
+					e1.printStackTrace();
+				}
 			}
 		}
 
@@ -227,7 +243,7 @@ public class RootController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public GridPane getView() {
 		return view;
 	}
