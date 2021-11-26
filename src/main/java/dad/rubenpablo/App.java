@@ -25,7 +25,7 @@ public class App extends Application {
 		primaryStage.setTitle("MiClienteFTP");
 		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/imgs/ftp-icon-32x32.png")));
 		primaryStage.setScene(rootScene);
-		primaryStage=primaryStage;
+		this.primaryStage=primaryStage;
 		primaryStage.show();
 
 	}
